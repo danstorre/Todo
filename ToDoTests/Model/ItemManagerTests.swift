@@ -43,7 +43,7 @@ class ItemManagerTests: XCTestCase {
         let item = ToDoItem(title: "Item")
         sut.addItem(item)
         let returnedItem = sut.itemAtIndex(0)
-        XCTAssertEqual(item.title, returnedItem.title, "should be the same item")
+        XCTAssertEqual(item, returnedItem, "should be the same item")
     }
     
     func testCheckingItem_ChangesCountOfToDoAndOfDoneItems() {
