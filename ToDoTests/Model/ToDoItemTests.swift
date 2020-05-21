@@ -86,6 +86,12 @@ class ToDoItemTests: XCTestCase {
         XCTAssertNotEqual(firstItem, secondItem)
     }
     
+    func testWhenDescriptionDifferes_ShouldBeNotEqual() {
+        let firstItem = ToDoItem(title: "First title", itemDescription: "First description")
+        let secondItem = ToDoItem(title: "First title", itemDescription: "Second description")
+        XCTAssertNotEqual(firstItem, secondItem)
+    }
+
 
 
 

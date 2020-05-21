@@ -33,6 +33,8 @@ extension ToDoItem: Equatable {
         if lhs.timestamp != rhs.timestamp {
             return false
         }
+        if lhs.itemDescription != rhs.itemDescription { return false
+        }
         return true
     }
 }
