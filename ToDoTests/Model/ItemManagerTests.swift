@@ -67,7 +67,7 @@ class ItemManagerTests: XCTestCase {
         sut.addItem(item)
         sut.checkItemAtIndex(0)
         let returnedItem = sut.doneItemAtIndex(0)
-        XCTAssertEqual(item.title, returnedItem.title, "should be the same item")
+        XCTAssertEqual(item, returnedItem, "should be the same item")
     }
     
     func testEqualItems_ShouldBeEqual() {
