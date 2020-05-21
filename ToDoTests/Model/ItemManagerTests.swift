@@ -59,7 +59,7 @@ class ItemManagerTests: XCTestCase {
         sut.addItem(firstItem)
         sut.addItem(secondItem)
         sut.checkItemAtIndex(0)
-        XCTAssertEqual(sut.itemAtIndex(0).title, secondItem.title)
+        XCTAssertEqual(sut.itemAtIndex(0), secondItem)
     }
     
     func testDoneItemAtIndex_ShouldReturnPreviouslyCheckedItem() {
