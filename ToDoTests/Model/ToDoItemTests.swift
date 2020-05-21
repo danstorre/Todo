@@ -25,10 +25,7 @@ class ToDoItemTests: XCTestCase {
                        "Test title",
                        "Initializer should set the item title")
     }
-    func testInit_ShouldTakeTitleAndDescription() {
-        _ = ToDoItem(title: "Test title",
-                     itemDescription: "Test description")
-    }
+    
     func testInit_ShouldSetTitleAndDescription() {
         let item = ToDoItem(title: "Test title",
                             itemDescription: "Test description")
