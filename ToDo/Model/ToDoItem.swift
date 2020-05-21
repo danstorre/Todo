@@ -35,6 +35,9 @@ extension ToDoItem: Equatable {
         }
         if lhs.itemDescription != rhs.itemDescription { return false
         }
+        if lhs.title != rhs.title {
+            return false
+        }
         return true
     }
 }
