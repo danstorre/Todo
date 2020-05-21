@@ -30,6 +30,9 @@ extension ToDoItem: Equatable {
         if lhs.location != rhs.location {
             return false
         }
+        if lhs.timestamp != rhs.timestamp {
+            return false
+        }
         return true
     }
 }
