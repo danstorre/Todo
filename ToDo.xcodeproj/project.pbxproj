@@ -17,6 +17,7 @@
 		FB5400232476E5CB00CE54DC /* ItemListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB5400222476E5CB00CE54DC /* ItemListViewController.swift */; };
 		FB5400292477F7F900CE54DC /* ItemListDataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB5400282477F7F900CE54DC /* ItemListDataProvider.swift */; };
 		FB54002B2477FFF100CE54DC /* ItemListDataProviderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB54002A2477FFF100CE54DC /* ItemListDataProviderTests.swift */; };
+		FB54002E24780E9D00CE54DC /* ItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB54002D24780E9D00CE54DC /* ItemCell.swift */; };
 		FBFD460F247558A0006E2459 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBFD460E247558A0006E2459 /* AppDelegate.swift */; };
 		FBFD4611247558A0006E2459 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBFD4610247558A0006E2459 /* SceneDelegate.swift */; };
 		FBFD4616247558A0006E2459 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FBFD4614247558A0006E2459 /* Main.storyboard */; };
@@ -45,6 +46,7 @@
 		FB5400222476E5CB00CE54DC /* ItemListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ItemListViewController.swift; path = Controller/ItemListViewController.swift; sourceTree = "<group>"; };
 		FB5400282477F7F900CE54DC /* ItemListDataProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ItemListDataProvider.swift; path = Controller/ItemListDataProvider.swift; sourceTree = "<group>"; };
 		FB54002A2477FFF100CE54DC /* ItemListDataProviderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemListDataProviderTests.swift; sourceTree = "<group>"; };
+		FB54002D24780E9D00CE54DC /* ItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ItemCell.swift; path = Controller/ItemCell.swift; sourceTree = "<group>"; };
 		FBFD460B247558A0006E2459 /* ToDo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ToDo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FBFD460E247558A0006E2459 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FBFD4610247558A0006E2459 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -132,6 +134,7 @@
 				FBFD4619247558A4006E2459 /* LaunchScreen.storyboard */,
 				FBFD461C247558A4006E2459 /* Info.plist */,
 				FB5400282477F7F900CE54DC /* ItemListDataProvider.swift */,
+				FB54002D24780E9D00CE54DC /* ItemCell.swift */,
 			);
 			path = ToDo;
 			sourceTree = "<group>";
@@ -248,6 +251,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FB54002E24780E9D00CE54DC /* ItemCell.swift in Sources */,
 				FBFD460F247558A0006E2459 /* AppDelegate.swift in Sources */,
 				FB5400292477F7F900CE54DC /* ItemListDataProvider.swift in Sources */,
 				FB54001624759D6600CE54DC /* Location.swift in Sources */,
