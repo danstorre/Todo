@@ -30,10 +30,12 @@
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <connections>
+                        <outlet property="dataProvider" destination="uwN-m5-ZIN" id="1Ro-K4-0dV"/>
                         <outlet property="tableView" destination="Clv-jt-5A1" id="PNy-pB-Q3E"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+                <customObject id="uwN-m5-ZIN" customClass="ItemListDataProvider" customModule="ToDo" customModuleProvider="target"/>
             </objects>
             <point key="canvasLocation" x="139" y="110"/>
         </scene>
