@@ -81,5 +81,70 @@
             </objects>
             <point key="canvasLocation" x="139" y="110"/>
         </scene>
+        <!--Detail View Controller-->
+        <scene sceneID="Tg0-6L-mUz">
+            <objects>
+                <viewController storyboardIdentifier="DetailViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="ioW-qJ-1dx" customClass="DetailViewController" customModule="ToDo" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="7f9-6Y-KIk">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="ZiB-YL-HFP">
+                                <rect key="frame" x="41.5" y="44" width="331" height="256"/>
+                                <subviews>
+                                    <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="Hyg-md-vkl">
+                                        <rect key="frame" x="0.0" y="0.0" width="331" height="142"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="142" id="gLM-Pz-qpa"/>
+                                        </constraints>
+                                    </mapView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XRB-mE-66C">
+                                        <rect key="frame" x="0.0" y="150" width="331" height="20.5"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rcd-4j-sKt">
+                                        <rect key="frame" x="0.0" y="178.5" width="331" height="20.5"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="l8v-Ma-9iP">
+                                        <rect key="frame" x="0.0" y="207" width="331" height="20.5"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="02A-R7-GZ7">
+                                        <rect key="frame" x="0.0" y="235.5" width="331" height="20.5"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <viewLayoutGuide key="safeArea" id="hQL-5d-IVs"/>
+                            </stackView>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="ZiB-YL-HFP" firstAttribute="width" secondItem="7f9-6Y-KIk" secondAttribute="width" multiplier="0.8" id="BFY-wp-bUz"/>
+                            <constraint firstItem="ZiB-YL-HFP" firstAttribute="top" secondItem="Qjc-8m-Qra" secondAttribute="top" id="grb-2z-QkF"/>
+                            <constraint firstItem="ZiB-YL-HFP" firstAttribute="centerX" secondItem="Qjc-8m-Qra" secondAttribute="centerX" id="hzh-LJ-Gch"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="Qjc-8m-Qra"/>
+                    </view>
+                    <connections>
+                        <outlet property="dateLabel" destination="rcd-4j-sKt" id="DLt-oS-BNb"/>
+                        <outlet property="descriptionLabel" destination="02A-R7-GZ7" id="20Z-Ed-8kd"/>
+                        <outlet property="locationLabel" destination="l8v-Ma-9iP" id="ERG-Ei-a9S"/>
+                        <outlet property="mapView" destination="Hyg-md-vkl" id="jKM-Ab-JSY"/>
+                        <outlet property="titleLabel" destination="XRB-mE-66C" id="sLy-8A-GPo"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="NeH-wh-xqr" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1182.608695652174" y="109.82142857142857"/>
+        </scene>
     </scenes>
 </document>
