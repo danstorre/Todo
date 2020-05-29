@@ -18,10 +18,12 @@ class APIClient {
         let domainURL = URL(string: "https://awesometodos.com/")!
         var components = URLComponents(url: domainURL, resolvingAgainstBaseURL: false)!
         components.queryItems = [userNameQuery, passwordQuery]
+        components.path = "/login"
         guard let url = components.url else { fatalError() }
-        session.dataTask(with: url) { (data, response, error) -> Void
+        let task = session.dataTask(with: url) { (data, response, error) -> Void
             in
         }
+        task.resume()
     }
 }
 
