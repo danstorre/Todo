@@ -13,7 +13,6 @@ class APIClientTests: XCTestCase {
     var sut: APIClient!
     var mockURLSession: MockURLSession!
     
-    
     override func setUpWithError() throws {
         try super.setUpWithError()
         
@@ -56,6 +55,52 @@ class APIClientTests: XCTestCase {
                               password: "1234", completion: completion)
         XCTAssertTrue(mockURLSession.dataTask.resumeGotCalled)
     }
+    
+    func testLogin_SetsToken() {
+        let mockKeychainManager = MockKeychainMananger()
+        sut.keychainManager = mockKeychainManager
+        let completion = { (error: Error?) in }
+        sut.loginUserWithName("dasdom",
+                              password: "1234", completion: completion)
+        let responseDict = ["token" : "1234567890"]
+        let responseData = try! JSONSerialization.data(withJSONObject: responseDict, options: [])
+        mockURLSession.completionHandler?(responseData, nil, nil)
+        let token = mockKeychainManager.passwordForAccount(account: "token")
+        XCTAssertEqual(token, responseDict["token"])
+    }
+    
+    func testLogin_ThrowsErrorWhenJSONIsInvalid() {
+        var theError: Error?
+        let completion = { (error: Error?) in
+            theError = error }
+        sut.loginUserWithName("dasdom", password: "1234", completion: completion)
+        let responseData = Data()
+        mockURLSession.completionHandler?(responseData, nil, nil)
+        XCTAssertNotNil(theError)
+    }
+    
+    func testLogin_ThrowsErrorWhenDataIsNil() {
+        var theError: Error?
+        let completion = { (error: Error?) in
+            theError = error }
+        sut.loginUserWithName("dasdom", password: "1234", completion: completion)
+        mockURLSession.completionHandler?(nil, nil, nil)
+        XCTAssertNotNil(theError)
+    }
+    
+    func testLogin_ThrowsErrorWhenResponseHasError() {
+        var theError: Error?
+        let completion = { (error: Error?) in
+            theError = error }
+        sut.loginUserWithName("dasdom", password: "1234", completion: completion)
+        let responseDict = ["token" : "1234567890"]
+        let responseData = try! JSONSerialization.data(withJSONObject: responseDict,
+                                                                       options: [])
+        let error = NSError(domain: "SomeError", code: 1234, userInfo: nil)
+        mockURLSession.completionHandler?(responseData, nil, error)
+        XCTAssertNotNil(theError)
+    }
+    
 }
 
 extension APIClientTests {
@@ -76,6 +121,18 @@ extension APIClientTests {
         var resumeGotCalled = false
         override func resume() {
             resumeGotCalled = true
+        }
+    }
+    
+    class MockKeychainMananger : KeychainAccessible {
+        var passwordDict = [String:String]()
+        func setPassword(password: String, account: String) {
+            passwordDict[account] = password
+        }
+        func deletePasswortForAccount(account: String) {
+            passwordDict.removeValue(forKey: account)
+        }
+        func passwordForAccount(account: String) -> String? { return passwordDict[account]
         }
     }
 }

@@ -8,11 +8,17 @@
 
 import Foundation
 
+enum WebserviceError : Error {
+    case DataEmptyError
+    case ResponseError
+}
+
 class APIClient {
     lazy var session: ToDoURLSession = URLSession.shared
+    var keychainManager: KeychainAccessible?
     func loginUserWithName(_ username: String,
                            password: String,
-                           completion: (Error?) -> Void) {
+                           completion: @escaping (Error?) -> Void) {
         let userNameQuery = URLQueryItem(name: "username", value: username)
         let passwordQuery = URLQueryItem(name: "password", value: password)
         let domainURL = URL(string: "https://awesometodos.com/")!
@@ -22,6 +28,25 @@ class APIClient {
         guard let url = components.url else { fatalError() }
         let task = session.dataTask(with: url) { (data, response, error) -> Void
             in
+            if error != nil {
+                completion(WebserviceError.ResponseError)
+                return
+            }
+
+            if let theData = data {
+                do {
+                    let responseDict = try JSONSerialization
+                        .jsonObject(with: theData, options: []) as! [String: Any]
+                    let token = responseDict["token"] as! String
+                    self.keychainManager?.setPassword(password: token,
+                                                      account: "token")
+                } catch {
+                    completion(error)
+                }
+            } else {
+                completion(WebserviceError.DataEmptyError)
+            }
+            
         }
         task.resume()
     }
