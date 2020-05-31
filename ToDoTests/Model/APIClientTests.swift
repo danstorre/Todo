@@ -26,12 +26,15 @@ class APIClientTests: XCTestCase {
     }
     
     func testLogin_MakesRequestWithUsernameAndPassword() {
+        
+        //test that has a completionhandler
         let completion = { (error: Error?) in }
         sut.loginUserWithName("dasdöm",
                               password: "%&34",
                               completion: completion)
         XCTAssertNotNil(mockURLSession.completionHandler)
         
+        //check that domain and path are correct
         guard let url = mockURLSession.url else { XCTFail(); return }
         let urlComponents = NSURLComponents(url: url,
                                             resolvingAgainstBaseURL: true)
@@ -46,6 +49,8 @@ class APIClientTests: XCTestCase {
         guard let expectedPassword = "%&34".addingPercentEncoding(withAllowedCharacters: allowedCharacters) else {
             fatalError()
         }
+        
+        //check that queryitems are correct
         XCTAssertEqual(urlComponents?.percentEncodedQuery, "username=\(expectedUsername)&password=\(expectedPassword)")
     }
     
