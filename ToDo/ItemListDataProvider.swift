@@ -13,8 +13,11 @@ enum Section: Int {
     case Done
 }
 
+@objc protocol ItemManagerSettable {
+    var itemManager: ItemManager? { get set }
+}
 
-class ItemListDataProvider: NSObject, UITableViewDataSource, UITableViewDelegate {
+class ItemListDataProvider: NSObject, UITableViewDataSource, UITableViewDelegate, ItemManagerSettable {
     var itemManager: ItemManager?
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

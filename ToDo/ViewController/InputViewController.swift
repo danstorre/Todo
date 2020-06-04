@@ -9,6 +9,16 @@
 import UIKit
 import CoreLocation
 
+extension ItemListViewController: InputDelegateController{
+    func didFinish() {
+        tableView.reloadData()
+    }
+}
+
+protocol InputDelegateController: class {
+    func didFinish()
+}
+
 class InputViewController: UIViewController {
     
     @IBOutlet weak var titleTextField: UITextField!
@@ -22,6 +32,8 @@ class InputViewController: UIViewController {
     
     lazy var geocoder = CLGeocoder()
     var itemManager: ItemManager?
+    
+    weak var delegate: InputDelegateController?
     
     let dateFormatter: DateFormatter = {
         let dateFormatter = DateFormatter()
@@ -49,17 +61,30 @@ class InputViewController: UIViewController {
             locationName.count > 0 {
             if let address = addressTextField.text, address.count > 0 {
                 geocoder.geocodeAddressString(address) {
-                [unowned self] (placeMarks, error) -> Void in
-                let placeMark = placeMarks?.first
-                let item = ToDoItem(title: titleString,
-                                    itemDescription: descriptionString,
-                                    timestamp: date?.timeIntervalSince1970,
-                                    location: Location(name: locationName,
-                                                       coordinate: placeMark?.location?.coordinate))
-                    self.itemManager?.addItem(item) }
+                    [unowned self] (placeMarks, error) -> Void in
+                    let placeMark = placeMarks?.first
+                    let item = ToDoItem(title: titleString,
+                                        itemDescription: descriptionString,
+                                        timestamp: date?.timeIntervalSince1970,
+                                        location: Location(name: locationName,
+                                                           coordinate: placeMark?.location?.coordinate))
+                    self.itemManager?.addItem(item)
+                    
+                    DispatchQueue.main.async {
+                        self.delegate?.didFinish()
+                        self.dismiss(animated: true, completion: nil)
+                    }
+                }
+                return
             }
         }
-
+        let item = ToDoItem(title: titleString,
+                            itemDescription: descriptionString,
+                            timestamp: date?.timeIntervalSince1970,
+                            location: nil)
+        itemManager?.addItem(item)
+        delegate?.didFinish()
+        dismiss(animated: true, completion: nil)
     }
     
 }

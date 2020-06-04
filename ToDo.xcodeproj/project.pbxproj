@@ -23,6 +23,7 @@
 		FB54002E24780E9D00CE54DC /* ItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB54002D24780E9D00CE54DC /* ItemCell.swift */; };
 		FB8E1B38247EFBC40051B700 /* APIClientTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB8E1B37247EFBC40051B700 /* APIClientTests.swift */; };
 		FB8E1B3A247EFC200051B700 /* APIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB8E1B39247EFC200051B700 /* APIClient.swift */; };
+		FB95EFB02489279400ACDB24 /* StoryboardTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB95EFAF2489279400ACDB24 /* StoryboardTests.swift */; };
 		FBA80600247E935E000135C8 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FBA805FF247E935E000135C8 /* MapKit.framework */; };
 		FBA80602247EB473000135C8 /* InputViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBA80601247EB473000135C8 /* InputViewControllerTests.swift */; };
 		FBA80604247EB578000135C8 /* InputViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBA80603247EB578000135C8 /* InputViewController.swift */; };
@@ -61,6 +62,7 @@
 		FB54002D24780E9D00CE54DC /* ItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemCell.swift; sourceTree = "<group>"; };
 		FB8E1B37247EFBC40051B700 /* APIClientTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIClientTests.swift; sourceTree = "<group>"; };
 		FB8E1B39247EFC200051B700 /* APIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIClient.swift; sourceTree = "<group>"; };
+		FB95EFAF2489279400ACDB24 /* StoryboardTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoryboardTests.swift; sourceTree = "<group>"; };
 		FBA805FF247E935E000135C8 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		FBA80601247EB473000135C8 /* InputViewControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputViewControllerTests.swift; sourceTree = "<group>"; };
 		FBA80603247EB578000135C8 /* InputViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = InputViewController.swift; path = ViewController/InputViewController.swift; sourceTree = "<group>"; };
@@ -190,6 +192,7 @@
 				FBFD4627247558A4006E2459 /* Info.plist */,
 				FB54000D24758F5400CE54DC /* LocationTests.swift */,
 				FB54002C2477FFF600CE54DC /* Control */,
+				FB95EFAF2489279400ACDB24 /* StoryboardTests.swift */,
 			);
 			path = ToDoTests;
 			sourceTree = "<group>";
@@ -320,6 +323,7 @@
 				FBA80602247EB473000135C8 /* InputViewControllerTests.swift in Sources */,
 				FB54000E24758F5400CE54DC /* LocationTests.swift in Sources */,
 				FB450E9C247D939300C9BD46 /* DetailViewControllerTests.swift in Sources */,
+				FB95EFB02489279400ACDB24 /* StoryboardTests.swift in Sources */,
 				FB8E1B38247EFBC40051B700 /* APIClientTests.swift in Sources */,
 				FB3C735124757818005DA126 /* ToDoItemTests.swift in Sources */,
 				FB54001F2476E0EB00CE54DC /* ItemListViewControllerTests.swift in Sources */,
