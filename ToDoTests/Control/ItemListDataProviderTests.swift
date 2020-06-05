@@ -29,6 +29,9 @@ class ItemListDataProviderTests: XCTestCase {
     }
     
     override func tearDownWithError() throws {
+        try super.tearDownWithError()
+        sut.itemManager?.removeAllItems()
+        sut.itemManager = nil
         // Put teardown code here. This method is called after the invocation of each test method in the class.
     }
     
@@ -109,7 +112,7 @@ class ItemListDataProviderTests: XCTestCase {
     func testCheckingAnItem_ChecksItInTheItemManager() {
         sut.itemManager?.addItem(ToDoItem(title: "First"))
         tableView.dataSource?.tableView?(tableView, commit: .delete,
-        forRowAt: IndexPath(row: 0, section: 0))
+                                         forRowAt: IndexPath(row: 0, section: 0))
         XCTAssertEqual(sut.itemManager?.toDoCount, 0)
         XCTAssertEqual(sut.itemManager?.doneCount, 1)
         XCTAssertEqual(tableView.numberOfRows(inSection: 0), 0)
@@ -127,7 +130,19 @@ class ItemListDataProviderTests: XCTestCase {
         XCTAssertEqual(tableView.numberOfRows(inSection: 0), 1)
         XCTAssertEqual(tableView.numberOfRows(inSection: 1), 0)
     }
-
+    
+    func testSelectingACell_SendsNotification() {
+        let item = ToDoItem(title: "First")
+        sut.itemManager?.addItem(item)
+        expectation(forNotification: NSNotification.Name(rawValue: "ItemSelectedNotification"), object: nil) { (notification) -> Bool in
+            guard let index = notification.userInfo?["index"] as? Int else { return false }
+            return index == 0
+        }
+        tableView.delegate?.tableView!(tableView,
+                                       didSelectRowAt: IndexPath(row: 0, section: 0))
+        waitForExpectations(timeout: 3, handler: nil)
+    }
+    
 }
 
 extension ItemListDataProviderTests {
@@ -140,15 +155,15 @@ extension ItemListDataProviderTests {
             return super.dequeueReusableCell(withIdentifier: identifier,
                                              for: indexPath)
         }
-
+        
         static func mockTableViewWithDataSource(_ dataSource: UITableViewDataSource) -> MockTableView {
             let mockTableView = MockTableView(
-                                        frame: CGRect(x: 0, y: 0,
-                                                      width: 320, height: 480),
-                                        style: .plain)
+                frame: CGRect(x: 0, y: 0,
+                              width: 320, height: 480),
+                style: .plain)
             mockTableView.dataSource = dataSource
             mockTableView.register(MockItemCell.self,
-            forCellReuseIdentifier: "ItemCell")
+                                   forCellReuseIdentifier: "ItemCell")
             return mockTableView
         }
     }

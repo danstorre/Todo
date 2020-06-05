@@ -14,6 +14,7 @@ class DetailViewControllerTests: XCTestCase {
     var sut: DetailViewController!
     
     override func setUpWithError() throws {
+        try super.setUpWithError()
         let storyboard = UIStoryboard(name: "Main",
         bundle: nil)
         sut = (storyboard.instantiateViewController( withIdentifier: "DetailViewController") as! DetailViewController)
@@ -21,6 +22,8 @@ class DetailViewControllerTests: XCTestCase {
     }
     
     override func tearDownWithError() throws {
+        try super.tearDownWithError()
+        sut.itemInfo?.0.removeAllItems()
         // Put teardown code here. This method is called after the invocation of each test method in the class.
     }
     

@@ -6,13 +6,58 @@
 //  Copyright © 2020 dansTeam. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 class ItemManager: NSObject {
     var toDoCount: Int { return toDoItems.count }
     var doneCount: Int { return doneItems.count }
     private var toDoItems = [ToDoItem]()
     private var doneItems = [ToDoItem]()
+    
+    var toDoPathURL: NSURL {
+        let fileURLs = FileManager.default.urls(
+            for: .documentDirectory, in: .userDomainMask)
+        guard let documentURL = fileURLs.first else { print("Something went wrong. Documents url could not be found")
+            fatalError()
+        }
+        return (documentURL as NSURL).appendingPathComponent("toDoItems.plist")! as NSURL
+    }
+    
+    override init() {
+        super.init()
+        if let nsToDoItems = NSArray(contentsOf: toDoPathURL as URL) {
+            for dict in nsToDoItems {
+                if let toDoItem = ToDoItem(dict: dict as! NSDictionary) {
+                    toDoItems.append(toDoItem)
+                }
+            }
+        }
+
+        NotificationCenter.default.addObserver( self,
+                                                selector: #selector(save),
+                                                name: UIApplication.willResignActiveNotification, object: nil)
+    }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+        save()
+    }
+    
+    @objc func save() {
+        var nsToDoItems = [AnyObject]()
+        for item in toDoItems { nsToDoItems.append(item.plistDict)
+        }
+        if nsToDoItems.count > 0 {
+            (nsToDoItems as NSArray).write(to: toDoPathURL as URL,
+                                           atomically: true)
+        } else {
+            do {
+                try FileManager.default.removeItem(at: toDoPathURL as URL)
+            } catch {
+                print(error)
+            }
+        }
+    }
     
     func addItem(_ item: ToDoItem) {
         if !toDoItems.contains(item) {

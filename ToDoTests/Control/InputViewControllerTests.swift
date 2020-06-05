@@ -149,8 +149,6 @@ class InputViewControllerTests: XCTestCase {
         mockInputViewController.descriptionTextField = UITextField()
         mockInputViewController.titleTextField.text = "Test Title"
         
-        
-        
         let expectationDelegate = expectation(description: "delegateGetsCalled")
         delegate.completionHandler = {[unowned self, mockInputViewController] in
             XCTAssertTrue(self.delegate.didFinishedGetsCalled)
