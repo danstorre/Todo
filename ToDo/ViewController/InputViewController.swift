@@ -19,7 +19,7 @@ protocol InputDelegateController: class {
     func didFinish()
 }
 
-class InputViewController: UIViewController {
+class InputViewController: UIViewController, UITextFieldDelegate {
     
     @IBOutlet weak var titleTextField: UITextField!
     @IBOutlet weak var dateTextField: UITextField!
@@ -35,6 +35,21 @@ class InputViewController: UIViewController {
     
     weak var delegate: InputDelegateController?
     
+    override func viewDidLoad() {
+        self.view.addGestureRecognizer(UITapGestureRecognizer(target: self,
+                                                              action: #selector(hideTexfieldFirstResponder)))
+        
+        
+    }
+    
+    @objc
+    func hideTexfieldFirstResponder(){
+        let firsResponser = self.view.subviews[0].subviews.first { (view) -> Bool in
+            return view.isFirstResponder
+        }
+        firsResponser?.resignFirstResponder()
+    }
+
     let dateFormatter: DateFormatter = {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "MM/dd/yyyy"
@@ -87,4 +102,9 @@ class InputViewController: UIViewController {
         dismiss(animated: true, completion: nil)
     }
     
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
 }

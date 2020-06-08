@@ -18,6 +18,23 @@ class ItemListViewController: UIViewController {
         dataProvider.itemManager = itemManager
         tableView.dataSource = dataProvider
         tableView.delegate = dataProvider
+        
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(goToDetail(_:)), name:  NSNotification.Name(rawValue: "ItemSelectedNotification"), object: nil)
+    }
+    
+    @objc
+    func goToDetail(_ obj: AnyObject){
+        guard let notification = obj as? NSNotification,
+            let userInfo = notification.userInfo,
+            let index = userInfo["index"] as? Int else {
+            return
+        }
+        if let nextViewController = storyboard?.instantiateViewController(withIdentifier: "DetailViewController")
+        as? DetailViewController {
+            nextViewController.itemInfo = (itemManager, index)
+            present(nextViewController, animated: true, completion: nil)
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
