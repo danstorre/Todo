@@ -91,15 +91,22 @@ class InputViewController: UIViewController, UITextFieldDelegate {
                     }
                 }
                 return
+            } else {
+                let item = ToDoItem(title: titleString,
+                                    itemDescription: descriptionString,
+                                    timestamp: date?.timeIntervalSince1970,
+                                    location: Location(name: locationName))
+                self.itemManager?.addItem(item)
+                dismiss(animated: true, completion: nil)
             }
+        }else {
+            let item = ToDoItem(title: titleString,
+                                itemDescription: descriptionString,
+                                timestamp: date?.timeIntervalSince1970,
+                                location: nil)
+            self.itemManager?.addItem(item)
+            dismiss(animated: true, completion: nil)
         }
-        let item = ToDoItem(title: titleString,
-                            itemDescription: descriptionString,
-                            timestamp: date?.timeIntervalSince1970,
-                            location: nil)
-        itemManager?.addItem(item)
-        delegate?.didFinish()
-        dismiss(animated: true, completion: nil)
     }
     
     

@@ -17,7 +17,8 @@ class ItemManager: NSObject {
     var toDoPathURL: NSURL {
         let fileURLs = FileManager.default.urls(
             for: .documentDirectory, in: .userDomainMask)
-        guard let documentURL = fileURLs.first else { print("Something went wrong. Documents url could not be found")
+        guard let documentURL = fileURLs.first else {
+            print("Something went wrong. Documents url could not be found")
             fatalError()
         }
         return (documentURL as NSURL).appendingPathComponent("toDoItems.plist")! as NSURL

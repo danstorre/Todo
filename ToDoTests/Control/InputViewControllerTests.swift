@@ -55,52 +55,41 @@ class InputViewControllerTests: XCTestCase {
     }
     
     func test_Save_UsesGeocoderToGetCoordinateFromAddress() {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "MM/dd/yyyy"
+        let mockInputViewController = MockInputViewController()
+        mockInputViewController.titleTextField = UITextField()
+        mockInputViewController.dateTextField = UITextField()
+        mockInputViewController.locationTextField = UITextField()
+        mockInputViewController.addressTextField = UITextField()
+        mockInputViewController.descriptionTextField = UITextField()
+        mockInputViewController.titleTextField.text = "Test Title"
+        mockInputViewController.dateTextField.text = "02/22/2016"
+        mockInputViewController.locationTextField.text = "Office"
         
+        mockInputViewController.addressTextField.text = "Infinite Loop 1, Cupertino"
         
-        let timestamp = 1456023600.0
-        let date = Date(timeIntervalSince1970: timestamp)
-        
-        
-        sut.titleTextField.text = "Foo"
-        sut.dateTextField.text = dateFormatter.string(from: date)
-        sut.locationTextField.text = "Bar"
-        sut.addressTextField.text = "Infinite Loop 1, Cupertino"
-        sut.descriptionTextField.text = "Baz"
-        
-        
+        mockInputViewController.descriptionTextField.text = "Test Description"
         let mockGeocoder = MockGeocoder()
-        sut.geocoder = mockGeocoder
+        mockInputViewController.geocoder = mockGeocoder
+        mockInputViewController.itemManager = ItemManager()
+        let expectation1 = expectation(description: "DISMISS")
         
-        
-        sut.itemManager = ItemManager()
-        
-        sut.delegate = delegate
-        sut.save()
-        
-        placemark = MockPlacemark()
-        
-        let coordinate = CLLocationCoordinate2DMake(37.3316851,
-                                                    -122.0300674)
-        placemark.mockCoordinate = coordinate
-        
-        let expectationDelegate = expectation(description: "delegateGetsCalled")
-
-        delegate.completionHandler = {[unowned self] in
-            XCTAssertTrue(self.delegate.didFinishedGetsCalled)
-            let item = self.sut.itemManager?.itemAtIndex(0)
-            let testItem = ToDoItem(title: "Foo",
-                                           itemDescription: "Baz",
-                                           timestamp: timestamp,
-                                           location: Location(name: "Bar",
-                                                              coordinate: coordinate))
-            XCTAssertEqual(item, testItem)
-            expectationDelegate.fulfill()
+        mockInputViewController.completionHandler = {
+            expectation1.fulfill()
         }
-        
+        mockInputViewController.save()
+        placemark = MockPlacemark()
+        let coordinate = CLLocationCoordinate2DMake(37.3316851, -122.0300674)
+        placemark.mockCoordinate = coordinate
         mockGeocoder.completionHandler?([placemark], nil)
-        wait(for: [expectationDelegate], timeout: 12)
+        
+        waitForExpectations(timeout: 1, handler: nil)
+        
+        let item = mockInputViewController.itemManager?.itemAtIndex(0)
+        let testItem = ToDoItem(title: "Test Title",
+                                itemDescription: "Test Description",
+                                timestamp: 1456110000.0,
+                                location: Location(name: "Office", coordinate: coordinate))
+        XCTAssertEqual(item, testItem)
     }
     
     func test_SaveButtonHasSaveAction() {
@@ -139,8 +128,6 @@ class InputViewControllerTests: XCTestCase {
     
     func testSave_DismissesViewController() {
         let mockInputViewController = MockInputViewController()
-
-        mockInputViewController.delegate = delegate
         
         mockInputViewController.titleTextField = UITextField()
         mockInputViewController.dateTextField = UITextField()
@@ -149,15 +136,14 @@ class InputViewControllerTests: XCTestCase {
         mockInputViewController.descriptionTextField = UITextField()
         mockInputViewController.titleTextField.text = "Test Title"
         
-        let expectationDelegate = expectation(description: "delegateGetsCalled")
-        delegate.completionHandler = {[unowned self, mockInputViewController] in
-            XCTAssertTrue(self.delegate.didFinishedGetsCalled)
-            expectationDelegate.fulfill()
+        let expectation1 = expectation(description: "bla")
+        
+        mockInputViewController.completionHandler = {
+            expectation1.fulfill()
         }
         mockInputViewController.save()
+        wait(for: [expectation1], timeout: 12)
         XCTAssertTrue(mockInputViewController.dismissGotCalled)
-        
-        wait(for: [expectationDelegate], timeout: 12)
     }
     
 }
@@ -175,8 +161,10 @@ extension InputViewControllerTests {
     
     class MockInputViewController : InputViewController {
         var dismissGotCalled = false
+        var completionHandler: (() -> Void)?
         override func dismiss(animated flag: Bool, completion: (() -> Void)?) {
             dismissGotCalled = true
+            completionHandler?()
         }
     }
     

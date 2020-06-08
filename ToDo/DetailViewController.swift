@@ -28,6 +28,7 @@ class DetailViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         guard let itemInfo = itemInfo else { return }
+        guard  itemInfo.0.toDoCount != 0 else { return }
         let item = itemInfo.0.itemAtIndex(itemInfo.1)
         titleLabel.text = item.title
         locationLabel.text = item.location?.name

@@ -23,6 +23,10 @@ class ItemListViewController: UIViewController {
                                                selector: #selector(goToDetail(_:)), name:  NSNotification.Name(rawValue: "ItemSelectedNotification"), object: nil)
     }
     
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
+    
     @objc
     func goToDetail(_ obj: AnyObject){
         guard let notification = obj as? NSNotification,
